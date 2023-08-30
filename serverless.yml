@@ -1,0 +1,22 @@
+org: arash
+app: appricot-clients
+service: s3-logger
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  saveLog:
+    handler: index.handler
+    environment: ${file(env.json)}
+    events:
+      - http:
+          method: post
+          path: /saveLog
+          cors: true
+
+
+plugins:
+  - serverless-offline
